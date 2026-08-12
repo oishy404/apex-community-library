@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<!-- Specifies the document type and HTML5 version for the webpage[cite: 14] -->
+<!-- Specifies the document type and HTML5 version for the webpage -->
 <html lang="en">
 <head>
-    <!-- Sets the character encoding to UTF-8 for proper text representation[cite: 14] -->
+    <!-- Sets the character encoding to UTF-8 for proper text representation -->
     <meta charset="UTF-8">
-    <!-- Ensures proper mobile viewport scaling and responsive behavior[cite: 14] -->
+    <!-- Ensures proper mobile viewport scaling and responsive behavior -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Sets the title displayed in the browser tab[cite: 14] -->
+    <!-- Sets the title displayed in the browser tab -->
     <title>Apex Community Library & Knowledge Hub - Home</title>
-    <!-- Imports the Google Inter font for clean typography[cite: 14] -->
+    <!-- Imports the Google Inter font for clean typography -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Defines custom CSS variables for color scheme management[cite: 14] */
+        /* Defines custom CSS variables for color scheme management */
         :root {
             --primary: #1b4332;
             --secondary: #2d6a4f;
@@ -20,12 +20,12 @@
             --light-bg: #f0f7f4;
             --card-bg: #ffffff;
         }
-        /* Resets default margins, paddings, and applies box-sizing globally[cite: 14] */
+        /* Resets default margins, paddings, and applies box-sizing globally */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        /* Sets the global background and text color[cite: 14] */
+        /* Sets the global background and text color */
         body { background-color: var(--light-bg); color: #333; }
 
-        /* Styles the main website header with background gradient and flex alignment[cite: 14] */
+        /* Styles the main website header with background gradient and flex alignment */
         header { 
             background: linear-gradient(135deg, #081c15, #1b4332, #2d6a4f); 
             padding: 1.2rem 3%; 
@@ -36,16 +36,16 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.15); 
             position: relative;
         }
-        /* Styles the logo with a gradient text effect[cite: 14] */
+        /* Styles the logo with a gradient text effect */
         .logo { font-size: 1.6rem; font-weight: 700; background: linear-gradient(45deg, #52b788, #d8f3dc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        /* Styles navigation wrapper and link lists[cite: 14] */
+        /* Styles navigation wrapper and link lists */
         nav { display: flex; align-items: center; gap: 1.5rem; }
         nav ul { display: flex; list-style: none; gap: 1.5rem; align-items: center; }
         nav a { color: white; text-decoration: none; font-weight: 600; transition: 0.3s; padding: 0.5rem 0.8rem; border-radius: 6px; }
         nav a:hover, nav a.active { background: rgba(82, 183, 136, 0.25); color: var(--accent); }
 
-        /* Styles authentication action buttons in the header[cite: 14] */
+        /* Styles authentication action buttons in the header */
         .auth-buttons { display: flex; gap: 0.8rem; align-items: center; }
         .auth-buttons a { color: white; text-decoration: none; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: bold; transition: 0.3s; }
         .btn-login { background: transparent; border: 2px solid var(--accent); }
@@ -53,10 +53,10 @@
         .btn-signup { background: linear-gradient(135deg, #52b788, #40916c); }
         .btn-signup:hover { opacity: 0.9; transform: scale(1.05); }
 
-        /* Mobile Hamburger Toggle icon button style[cite: 14] */
+        /* Mobile Hamburger Toggle icon button style */
         .menu-toggle { display: none; cursor: pointer; font-size: 1.8rem; color: white; }
 
-        /* Styles the hero banner section with a background image overlay and typography[cite: 14] */
+        /* Styles the hero banner section with a background image overlay and typography */
         .hero {
             background: linear-gradient(135deg, rgba(27,67,50,0.9), rgba(45,106,79,0.85)), url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
             color: white;
@@ -79,7 +79,7 @@
         }
         .hero-btn:hover { background: #ffa200; transform: translateY(-3px); }
 
-        /* Styles the container holding library statistics cards[cite: 14] */
+        /* Styles the container holding library statistics cards */
         .stats-container {
             max-width: 1100px;
             margin: -3rem auto 3rem auto;
@@ -90,7 +90,7 @@
             position: relative;
             z-index: 10;
         }
-        /* Styles individual stat cards with shadows and hover animation[cite: 14] */
+        /* Styles individual stat cards with shadows and hover animation */
         .stat-card {
             background: white;
             padding: 2rem;
@@ -104,7 +104,7 @@
         .stat-card h3 { font-size: 2.2rem; color: var(--primary); margin-bottom: 0.3rem; }
         .stat-card p { color: #666; font-weight: 600; }
 
-        /* Styles the layout section for welcome information and the notice board[cite: 14] */
+        /* Styles the layout section for welcome information and the notice board */
         .content-section {
             max-width: 1100px;
             margin: 0 auto 4rem auto;
@@ -122,7 +122,7 @@
         .welcome-box h2, .notice-box h2 { color: var(--primary); margin-bottom: 1rem; font-size: 1.8rem; }
         .welcome-box p { color: #555; line-height: 1.7; margin-bottom: 1.5rem; }
         
-        /* Styles items within the notice list[cite: 14] */
+        /* Styles items within the notice list */
         .notice-list { list-style: none; }
         .notice-list li {
             padding: 0.8rem 0;
@@ -132,7 +132,7 @@
         }
         .notice-list li span { color: var(--secondary); font-weight: bold; display: block; font-size: 0.8rem; }
 
-        /* Styles popup modal overlay containers[cite: 14] */
+        /* Styles popup modal overlay containers */
         .modal {
             display: none;
             position: fixed;
@@ -143,7 +143,7 @@
             justify-content: center;
             align-items: center;
         }
-        /* Styles modal popup content boxes[cite: 14] */
+        /* Styles modal popup content boxes */
         .modal-content {
             background: white;
             padding: 2.5rem;
@@ -156,24 +156,33 @@
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #888; }
         .modal input { width: 100%; padding: 0.8rem 1rem; margin: 0.4rem 0 1.2rem; border: 1px solid #ddd; border-radius: 8px; outline: none; }
 
-        /* Styles the website footer section[cite: 14] */
+        /* Styles the website footer section */
         footer { background: #081c15; color: #adb5bd; text-align: center; padding: 2rem; border-top: 4px solid var(--accent); }
 
-        /* Responsive Media Queries for Tablets & Phones[cite: 14] */
+        /* Responsive Media Queries for Tablets & Phones */
         @media(max-width: 900px) {
             .content-section { grid-template-columns: 1fr; }
             .hero h1 { font-size: 2.2rem; }
         }
         @media(max-width: 768px) {
+            /* Fix: Changed header layout to column so mobile menu stacks naturally and pushes content down */
+            header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .header-top {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+            }
             .menu-toggle { display: block; }
             nav {
                 display: none;
                 flex-direction: column;
-                position: absolute;
-                top: 100%; left: 0; width: 100%;
+                width: 100%;
                 background: #081c15;
-                padding: 1.5rem;
-                box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+                padding-top: 1rem;
                 align-items: flex-start;
             }
             nav.active { display: flex; }
@@ -188,10 +197,12 @@
     </style>
 </head>
 <body>
-    <!-- Header section with logo, mobile menu toggle, and navigation links[cite: 14] -->
+    <!-- Header section with logo, mobile menu toggle, and navigation links -->
     <header>
-        <div class="logo">Apex Library Hub</div>
-        <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+        <div class="header-top">
+            <div class="logo">Apex Library Hub</div>
+            <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+        </div>
         <nav id="navMenu">
             <ul>
                 <li><a href="index.html" class="active">Home</a></li>
@@ -207,21 +218,21 @@
         </nav>
     </header>
 
-    <!-- Hero banner introducing the library community[cite: 14] -->
+    <!-- Hero banner introducing the library community -->
     <section class="hero">
         <h1>Welcome to Apex Community Library</h1>
         <p>Your ultimate destination for books, knowledge, research papers, and modern learning spaces. Join our community today!</p>
         <a href="catalog.html" class="hero-btn">Browse Book Catalog</a>
     </section>
 
-    <!-- Statistics overview cards displaying key library metrics[cite: 14] -->
+    <!-- Statistics overview cards displaying key library metrics -->
     <div class="stats-container">
         <div class="stat-card"><h3>5,000+</h3><p>Books & Journals</p></div>
         <div class="stat-card"><h3>1,200+</h3><p>Active Members</p></div>
         <div class="stat-card"><h3>24/7</h3><p>Reading Hub Access</p></div>
     </div>
 
-    <!-- Main content area featuring community information and the notice board[cite: 14] -->
+    <!-- Main content area featuring community information and the notice board -->
     <div class="content-section">
         <div class="welcome-box">
             <h2>Empowering Minds, Connecting Communities</h2>
@@ -238,7 +249,7 @@
         </div>
     </div>
 
-    <!-- User Login Modal Window[cite: 14] -->
+    <!-- User Login Modal Window -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
@@ -253,7 +264,7 @@
         </div>
     </div>
 
-    <!-- User Sign Up Modal Window[cite: 14] -->
+    <!-- User Sign Up Modal Window -->
     <div id="signupModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('signupModal')">&times;</span>
@@ -270,7 +281,7 @@
         </div>
     </div>
 
-    <!-- General Application Notification Modal Window[cite: 14] -->
+    <!-- General Application Notification Modal Window -->
     <div id="messageModal" class="modal">
         <div class="modal-content" style="text-align: center;">
             <h3 id="messageTitle" style="color: var(--primary); margin-bottom: 0.75rem;">Notice</h3>
@@ -279,32 +290,32 @@
         </div>
     </div>
 
-    <!-- Website footer section[cite: 14] -->
+    <!-- Website footer section -->
     <footer>
         <p>&copy; 2026 Apex Community Library & Knowledge Hub. All Rights Reserved.</p>
     </footer>
 
-    <!-- JavaScript code blocks for authentication, menu toggles, and modal controls[cite: 14] -->
+    <!-- JavaScript code blocks for authentication, menu toggles, and modal controls -->
     <script>
-        /* Initializes user login state and name from local storage[cite: 14] */
+        /* Initializes user login state and name from local storage */
         let isLoggedIn = localStorage.getItem('apexLoggedIn') === 'true';
         let loggedInUserName = localStorage.getItem('apexUserName') || 'User';
 
-        /* Updates UI elements when the window finishes loading[cite: 14] */
+        /* Updates UI elements when the window finishes loading */
         window.onload = function() { updateAuthUI(); }
-        /* Toggles the mobile navigation menu display[cite: 14] */
+        /* Toggles the mobile navigation menu display */
         function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
-        /* Opens a specific modal window by its ID[cite: 14] */
+        /* Opens a specific modal window by its ID */
         function openModal(modalId) { document.getElementById(modalId).style.display = 'flex'; }
-        /* Closes a specific modal window by its ID[cite: 14] */
+        /* Closes a specific modal window by its ID */
         function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
-        /* Displays custom alert messages inside the notification modal[cite: 14] */
+        /* Displays custom alert messages inside the notification modal */
         function showMessage(title, text) {
             document.getElementById('messageTitle').innerText = title;
             document.getElementById('messageBody').innerText = text;
             openModal('messageModal');
         }
-        /* Handles user sign up process and saves user data locally[cite: 14] */
+        /* Handles user sign up process and saves user data locally */
         function handleSignup(event) {
             event.preventDefault();
             localStorage.setItem('apexUserName', document.getElementById('signupName').value.trim());
@@ -313,7 +324,7 @@
             closeModal('signupModal');
             showMessage('Success', 'Account registered successfully! Please log in.');
         }
-        /* Validates login credentials against local storage[cite: 14] */
+        /* Validates login credentials against local storage */
         function handleLogin(event) {
             event.preventDefault();
             if (document.getElementById('loginEmail').value.trim().toLowerCase() === localStorage.getItem('apexUserEmail') && 
@@ -328,14 +339,14 @@
                 showMessage('Login Failed', 'Incorrect Email or Password!');
             }
         }
-        /* Clears login session details and updates authentication UI[cite: 14] */
+        /* Clears login session details and updates authentication UI */
         function handleLogout() {
             localStorage.removeItem('apexLoggedIn');
             isLoggedIn = false;
             updateAuthUI();
             showMessage('Logged Out', 'You have been logged out successfully.');
         }
-        /* Dynamically updates the header auth section based on login status[cite: 14] */
+        /* Dynamically updates the header auth section based on login status */
         function updateAuthUI() {
             const authSection = document.getElementById('authSection');
             if (isLoggedIn) {
