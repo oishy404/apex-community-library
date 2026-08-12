@@ -1,0 +1,98 @@
+/* =========================================
+   Global Styles & CSS Variables
+   ========================================= */
+:root {
+    --primary-color: #1b4332;
+    --secondary-color: #2d6a4f;
+    --accent-color: #52b788;
+    --light-bg: #f8f9fa;
+    --dark-text: #212529;
+    --white: #ffffff;
+    --transition: all 0.3s ease;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--dark-text);
+    background-color: var(--light-bg);
+    line-height: 1.6;
+}
+
+/* =========================================
+   Header & Navigation (Consistent Across Pages)
+   ========================================= */
+header {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 1rem 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* CSS3 Shadow requirement */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+nav a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 4px; /* CSS3 Rounded Corners requirement */
+    transition: var(--transition); /* CSS3 Transition requirement */
+}
+
+nav a:hover, nav a.active {
+    background-color: var(--secondary-color);
+}
+
+/* =========================================
+   Footer
+   ========================================= */
+footer {
+    background-color: var(--primary-color);
+    color: var(--white);
+    text-align: center;
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+/* =========================================
+   Responsive Media Queries
+   ========================================= */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+}

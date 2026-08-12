@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Sets character encoding and ensures proper mobile viewport scaling[cite: 13] -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Community Library & Knowledge Hub - Catalog</title>
+    <!-- Importing Google Fonts for clean typography[cite: 13] -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Root Variables for Consistent Theming[cite: 13] */
+        :root {
+            --primary: #1b4332;
+            --secondary: #2d6a4f;
+            --accent: #52b788;
+            --highlight: #ffb703;
+            --light-bg: #f0f7f4;
+            --card-bg: #ffffff;
+        }
+        /* Global Reset & Typography Styles[cite: 13] */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--light-bg); color: #333; overflow-x: hidden; }
+
+        /* Header & Main Navigation Styling (Responsive Flexbox)[cite: 13] */
+        header { 
+            background: linear-gradient(135deg, #081c15, #1b4332, #2d6a4f); 
+            padding: 1.2rem 3%; 
+            color: white; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 1rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15); 
+        }
+        .logo { font-size: 1.6rem; font-weight: 700; background: linear-gradient(45deg, #52b788, #d8f3dc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        nav ul { display: flex; list-style: none; gap: 1.2rem; align-items: center; flex-wrap: wrap; }
+        nav a { color: white; text-decoration: none; font-weight: 600; transition: 0.3s; padding: 0.5rem 0.8rem; border-radius: 6px; font-size: 0.95rem; }
+        nav a:hover, nav a.active { background: rgba(82, 183, 136, 0.25); color: var(--accent); }
+
+        /* User Authentication Buttons Section[cite: 13] */
+        .auth-buttons { display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; }
+        .auth-buttons a { color: white; text-decoration: none; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: bold; transition: 0.3s; }
+        .btn-login { background: transparent; border: 2px solid var(--accent); }
+        .btn-login:hover { background: var(--accent); color: #081c15; }
+        .btn-signup { background: linear-gradient(135deg, #52b788, #40916c); }
+
+        /* Main Catalog Layout Container[cite: 13] */
+        .catalog-container { max-width: 1200px; margin: 2rem auto; padding: 0 1.5rem; }
+        .hero-banner {
+            background: linear-gradient(135deg, #2d6a4f, #52b788);
+            color: white; padding: 2rem 1.5rem; border-radius: 16px; text-align: center; margin-bottom: 2.5rem;
+            box-shadow: 0 10px 25px rgba(45, 106, 79, 0.2);
+        }
+        .hero-banner h1 { font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 0.5rem; }
+        .hero-banner p { font-size: clamp(0.9rem, 2vw, 1rem); }
+        
+        /* Interactive Search Input Box Style[cite: 13] */
+        .search-bar { 
+            width: 100%; max-width: 500px; padding: 0.9rem 1.5rem; margin: 0 auto 2.5rem; 
+            border-radius: 30px; border: 2px solid var(--accent); outline: none; display: block; font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* Book Card Grid Layout Configuration (Fully Responsive using auto-fit)[cite: 13] */
+        .book-grid {
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 2rem; 
+            margin-bottom: 3rem;
+        }
+        .book-card {
+            background: var(--card-bg); padding: 1.8rem; border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06); display: flex; flex-direction: column; justify-content: space-between;
+            border-top: 5px solid var(--accent); transition: 0.3s;
+        }
+        .book-card:hover { transform: translateY(-5px); }
+
+        /* Availability Status Badges[cite: 13] */
+        .status-available { color: #1b4332; font-weight: 700; background: #d8f3dc; padding: 0.3rem 0.8rem; border-radius: 20px; display: inline-block; margin-bottom: 0.8rem; font-size: 0.85rem; }
+        .status-borrowed { color: #902923; font-weight: 700; background: #f8d7da; padding: 0.3rem 0.8rem; border-radius: 20px; display: inline-block; margin-bottom: 0.8rem; font-size: 0.85rem; }
+        
+        /* Comments & Reviews Area Box[cite: 13] */
+        .reviews-section {
+            background: #f8f9fa; padding: 0.8rem; border-radius: 8px; margin: 0.8rem 0; font-size: 0.85rem; color: #555; border-left: 3px solid var(--secondary); max-height: 140px; overflow-y: auto;
+        }
+        .comment-item { border-bottom: 1px solid #eee; padding-bottom: 0.3rem; margin-bottom: 0.3rem; word-break: break-word; }
+        .comment-item:last-child { border-bottom: none; }
+        
+        /* Comment Input Control Panel[cite: 13] */
+        .comment-input-box { display: flex; gap: 0.4rem; margin-top: 0.5rem; }
+        .comment-input-box input { flex: 1; padding: 0.4rem 0.6rem; font-size: 0.8rem; border: 1px solid #ddd; border-radius: 6px; outline: none; min-width: 0; }
+        .comment-input-box button { background: var(--secondary); color: white; border: none; padding: 0.4rem 0.8rem; font-size: 0.75rem; border-radius: 6px; cursor: pointer; font-weight: bold; white-space: nowrap; }
+
+        /* Action Buttons Group Layout[cite: 13] */
+        .btn-group { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.8rem; }
+        .btn-action {
+            background: var(--primary); color: white; border: none; padding: 0.5rem 0.8rem;
+            border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 0.85rem; transition: 0.3s; flex: 1 1 110px;
+            text-align: center;
+        }
+        .btn-action:hover { background: var(--secondary); }
+        .btn-wishlist { background: #e9f5ed; color: var(--primary); border: 1px solid var(--accent); }
+        .btn-wishlist.active-fav { background: #ffe3e3; color: #d90429; border-color: #d90429; }
+
+        /* Desk / Seat Section Design[cite: 13] */
+        .extra-section {
+            background: white; padding: 2rem 1.5rem; border-radius: 16px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); margin-top: 3rem; text-align: center;
+        }
+        .seat-grid { display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; }
+        .seat-btn { 
+            background: #e9f5ed; border: 2px solid var(--accent); padding: 1rem; border-radius: 10px; 
+            cursor: pointer; font-weight: bold; color: var(--primary); transition: 0.3s; text-align: left; line-height: 1.4; 
+            flex: 1 1 140px; max-width: 200px;
+        }
+        .seat-btn.unavailable { background: #f8d7da; border-color: #f5c6cb; color: #721c24; cursor: not-allowed; opacity: 0.9; }
+        .seat-btn:not(.unavailable):hover { background: var(--secondary); color: white; }
+
+        /* Popup Modal Window Structure[cite: 13] */
+        .modal {
+            display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(8, 28, 21, 0.65); backdrop-filter: blur(5px); justify-content: center; align-items: center; padding: 1rem;
+        }
+        .modal-content {
+            background: white; padding: 2rem 1.5rem; border-radius: 20px; width: 100%; max-width: 450px; position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto;
+        }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #888; }
+        .modal input, .modal select { width: 100%; padding: 0.8rem; margin: 0.4rem 0 1.2rem; border: 1px solid #ddd; border-radius: 8px; outline: none; background: #fff; font-size: 0.95rem; }
+
+        /* Website Footer Element[cite: 13] */
+        footer { background: #081c15; color: #adb5bd; text-align: center; padding: 2rem 1.5rem; margin-top: 4rem; border-top: 4px solid var(--accent); }
+
+        /* Mobile Media Query Breakpoints for Compact Nav alignment[cite: 13] */
+        @media (max-width: 768px) {
+            header { flex-direction: column; align-items: center; text-align: center; }
+            nav ul { justify-content: center; gap: 0.8rem; }
+            .catalog-container { padding: 0 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Header Section[cite: 13] -->
+    <header>
+        <div class="logo">Apex Library Hub</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="catalog.html" class="active">Catalog & E-Books</a></li>
+                <li><a href="media.html">Media</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <!-- Dynamic Login/Signup Buttons Container[cite: 13] -->
+        <div class="auth-buttons" id="authSection">
+            <a href="#" class="btn-login" onclick="openModal('loginModal')">Login</a>
+            <a href="#" class="btn-signup" onclick="openModal('signupModal')">Sign Up</a>
+        </div>
+    </header>
+
+    <main class="catalog-container">
+        
+        <!-- Hero Information Banner[cite: 13] -->
+        <section class="hero-banner">
+            <h1>Digital Catalog & Reading Hub</h1>
+            <p>Anyone can view comments. Login required for commenting, seat booking, wishlist, & E-books!</p>
+        </section>
+
+        <!-- Live Instant Search Bar[cite: 13] -->
+        <input type="text" id="searchInput" class="search-bar" placeholder="🔍 Search books by title or author..." onkeyup="filterBooks()" onkeydown="handleSearchKey(event)">
+
+        <!-- Library Book Cards Grid Layout Container[cite: 13] -->
+        <div class="book-grid" id="bookGrid">
+            
+            <!-- Book Card 1: The Great Gatsby[cite: 13] -->
+            <div class="book-card" data-title="The Great Gatsby">
+                <div>
+                    <h3 style="color: var(--primary); margin-bottom: 0.3rem;">The Great Gatsby</h3>
+                    <p style="color: #666; font-size: 0.85rem; margin-bottom: 0.4rem;">Author: F. Scott Fitzgerald</p>
+                    <span class="status-available">Available</span>
+                    
+                    <div class="reviews-section" id="comments_The Great Gatsby">
+                        <div class="comment-item"><strong>Alex:</strong> A masterpiece of the jazz age.</div>
+                    </div>
+                    <div class="comment-input-box">
+                        <input type="text" id="input_The Great Gatsby" placeholder="Add a comment...">
+                        <button onclick="addComment('The Great Gatsby')">Post</button>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn-action" onclick="issueBook('The Great Gatsby')">Issue</button>
+                    <button class="btn-action btn-wishlist" id="wish_The Great Gatsby" onclick="toggleWishlist('The Great Gatsby')">🤍 Wishlist</button>
+                    <button class="btn-action" style="background: var(--highlight); color: #1b4332;" onclick="accessEBook('https://www.gutenberg.org/ebooks/64317')">📖 E-Book</button>
+                </div>
+            </div>
+
+            <!-- Book Card 2: To Kill a Mockingbird[cite: 13] -->
+            <div class="book-card" data-title="To Kill a Mockingbird">
+                <div>
+                    <h3 style="color: var(--primary); margin-bottom: 0.3rem;">To Kill a Mockingbird</h3>
+                    <p style="color: #666; font-size: 0.85rem; margin-bottom: 0.4rem;">Author: Harper Lee</p>
+                    <span class="status-available">Available</span>
+                    
+                    <div class="reviews-section" id="comments_To Kill a Mockingbird">
+                        <div class="comment-item"><strong>Sarah:</strong> Deeply moving and impactful story.</div>
+                    </div>
+                    <div class="comment-input-box">
+                        <input type="text" id="input_To Kill a Mockingbird" placeholder="Add a comment...">
+                        <button onclick="addComment('To Kill a Mockingbird')">Post</button>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn-action" onclick="issueBook('To Kill a Mockingbird')">Issue</button>
+                    <button class="btn-action btn-wishlist" id="wish_To Kill a Mockingbird" onclick="toggleWishlist('To Kill a Mockingbird')">🤍 Wishlist</button>
+                    <button class="btn-action" style="background: var(--highlight); color: #1b4332;" onclick="accessEBook('https://archive.org/details/tokillamockingbi00leee_0')">📖 E-Book</button>
+                </div>
+            </div>
+
+            <!-- Book Card 3: 1984[cite: 13] -->
+            <div class="book-card" data-title="1984">
+                <div>
+                    <h3 style="color: var(--primary); margin-bottom: 0.3rem;">1984</h3>
+                    <p style="color: #666; font-size: 0.85rem; margin-bottom: 0.4rem;">Author: George Orwell</p>
+                    <span class="status-borrowed">Checked Out</span>
+                    
+                    <div class="reviews-section" id="comments_1984">
+                        <div class="comment-item"><strong>David:</strong> Prophetic and chilling masterpiece.</div>
+                    </div>
+                    <div class="comment-input-box">
+                        <input type="text" id="input_1984" placeholder="Add a comment...">
+                        <button onclick="addComment('1984')">Post</button>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn-action" style="background: #ccc; cursor: not-allowed;" disabled>Unavailable</button>
+                    <button class="btn-action btn-wishlist" id="wish_1984" onclick="toggleWishlist('1984')">🤍 Wishlist</button>
+                    <button class="btn-action" style="background: var(--highlight); color: #1b4332;" onclick="accessEBook('https://www.gutenberg.org/')">📖 E-Book</button>
+                </div>
+            </div>
+
+            <!-- Book Card 4: Clean Code[cite: 13] -->
+            <div class="book-card" data-title="Clean Code">
+                <div>
+                    <h3 style="color: var(--primary); margin-bottom: 0.3rem;">Clean Code</h3>
+                    <p style="color: #666; font-size: 0.85rem; margin-bottom: 0.4rem;">Author: Robert C. Martin</p>
+                    <span class="status-available">Available</span>
+                    
+                    <div class="reviews-section" id="comments_Clean Code">
+                        <div class="comment-item"><strong>Tanvir:</strong> Essential read for software engineers.</div>
+                    </div>
+                    <div class="comment-input-box">
+                        <input type="text" id="input_Clean Code" placeholder="Add a comment...">
+                        <button onclick="addComment('Clean Code')">Post</button>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn-action" onclick="issueBook('Clean Code')">Issue</button>
+                    <button class="btn-action btn-wishlist" id="wish_Clean Code" onclick="toggleWishlist('Clean Code')">🤍 Wishlist</button>
+                    <button class="btn-action" style="background: var(--highlight); color: #1b4332;" onclick="accessEBook('https://github.com')">📖 E-Book</button>
+                </div>
+            </div>
+
+            <!-- Book Card 5: Pride and Prejudice[cite: 13] -->
+            <div class="book-card" data-title="Pride and Prejudice">
+                <div>
+                    <h3 style="color: var(--primary); margin-bottom: 0.3rem;">Pride and Prejudice</h3>
+                    <p style="color: #666; font-size: 0.85rem; margin-bottom: 0.4rem;">Author: Jane Austen</p>
+                    <span class="status-available">Available</span>
+                    
+                    <div class="reviews-section" id="comments_Pride and Prejudice">
+                        <div class="comment-item"><strong>Emma:</strong> Timeless romance and sharp wit.</div>
+                    </div>
+                    <div class="comment-input-box">
+                        <input type="text" id="input_Pride and Prejudice" placeholder="Add a comment...">
+                        <button onclick="addComment('Pride and Prejudice')">Post</button>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn-action" onclick="issueBook('Pride and Prejudice')">Issue</button>
+                    <button class="btn-action btn-wishlist" id="wish_Pride and Prejudice" onclick="toggleWishlist('Pride and Prejudice')">🤍 Wishlist</button>
+                    <button class="btn-action" style="background: var(--highlight); color: #1b4332;" onclick="accessEBook('https://www.gutenberg.org/ebooks/1342')">📖 E-Book</button>
+                </div>
+            </div>
+
+            <!-- Book Card 6: The Hobbit[cite: 13] -->
+            <div class="book-card" data-title="The Hobbit">
+                <div>
+                    <h3 style="color: var(--primary); margin-bottom: 0.3rem;">The Hobbit</h3>
+                    <p style="color: #666; font-size: 0.85rem; margin-bottom: 0.4rem;">Author: J.R.R. Tolkien</p>
+                    <span class="status-available">Available</span>
+                    
+                    <div class="reviews-section" id="comments_The Hobbit">
+                        <div class="comment-item"><strong>Frodo:</strong> A fantastic journey into Middle-earth.</div>
+                    </div>
+                    <div class="comment-input-box">
+                        <input type="text" id="input_The Hobbit" placeholder="Add a comment...">
+                        <button onclick="addComment('The Hobbit')">Post</button>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn-action" onclick="issueBook('The Hobbit')">Issue</button>
+                    <button class="btn-action btn-wishlist" id="wish_The Hobbit" onclick="toggleWishlist('The Hobbit')">🤍 Wishlist</button>
+                    <button class="btn-action" style="background: var(--highlight); color: #1b4332;" onclick="accessEBook('https://archive.org/')">📖 E-Book</button>
+                </div>
+            </div>
+
+            <!-- Book Card 7: Atomic Habits[cite: 13] -->
+            <div class="book-card" data-title="Atomic Habits">
+                <div>
+                    <h3 style="color: var(--primary); margin-bottom: 0.3rem;">Atomic Habits</h3>
+                    <p style="color: #666; font-size: 0.85rem; margin-bottom: 0.4rem;">Author: James Clear</p>
+                    <span class="status-borrowed">Checked Out</span>
+                    
+                    <div class="reviews-section" id="comments_Atomic Habits">
+                        <div class="comment-item"><strong>Liam:</strong> Life-changing practical advice.</div>
+                    </div>
+                    <div class="comment-input-box">
+                        <input type="text" id="input_Atomic Habits" placeholder="Add a comment...">
+                        <button onclick="addComment('Atomic Habits')">Post</button>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn-action" style="background: #ccc; cursor: not-allowed;" disabled>Unavailable</button>
+                    <button class="btn-action btn-wishlist" id="wish_Atomic Habits" onclick="toggleWishlist('Atomic Habits')">🤍 Wishlist</button>
+                    <button class="btn-action" style="background: var(--highlight); color: #1b4332;" onclick="accessEBook('https://jamesclear.com/atomic-habits')">📖 E-Book</button>
+                </div>
+            </div>
+
+            <!-- Book Card 8: Design Patterns[cite: 13] -->
+            <div class="book-card" data-title="Design Patterns">
+                <div>
+                    <h3 style="color: var(--primary); margin-bottom: 0.3rem;">Design Patterns</h3>
+                    <p style="color: #666; font-size: 0.85rem; margin-bottom: 0.4rem;">Author: Erich Gamma et al.</p>
+                    <span class="status-available">Available</span>
+                    
+                    <div class="reviews-section" id="comments_Design Patterns">
+                        <div class="comment-item"><strong>Grace:</strong> The blueprint for object-oriented design.</div>
+                    </div>
+                    <div class="comment-input-box">
+                        <input type="text" id="input_Design Patterns" placeholder="Add a comment...">
+                        <button onclick="addComment('Design Patterns')">Post</button>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn-action" onclick="issueBook('Design Patterns')">Issue</button>
+                    <button class="btn-action btn-wishlist" id="wish_Design Patterns" onclick="toggleWishlist('Design Patterns')">🤍 Wishlist</button>
+                    <button class="btn-action" style="background: var(--highlight); color: #1b4332;" onclick="accessEBook('https://www.oreilly.com')">📖 E-Book</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Reading Room Seat Reservation Section[cite: 13] -->
+        <section class="extra-section">
+            <h2 style="color: var(--primary); margin-bottom: 0.5rem;">🪑 Reserve a Reading Room Seat</h2>
+            <p style="color: #666; font-size: 0.95rem;">Seat booking requires login. Selectable duration from 30 minutes up to 5 hours:</p>
+            <div class="seat-grid" id="seatGridContainer">
+                <button class="seat-btn" id="seat_Desk_A01" onclick="openSeatModal('seat_Desk_A01', 'Desk A-01')">Desk A-01<br><span style="font-weight: normal; font-size: 0.85rem;">(Available)</span></button>
+                <button class="seat-btn unavailable" id="seat_Desk_A02" disabled>Desk A-02<br><span style="font-weight: normal; font-size: 0.85rem;">(Occupied)</span></button>
+                <button class="seat-btn" id="seat_Desk_A03" onclick="openSeatModal('seat_Desk_A03', 'Desk A-03')">Desk A-03<br><span style="font-weight: normal; font-size: 0.85rem;">(Available)</span></button>
+                
+                <button class="seat-btn" id="seat_Desk_B01" onclick="openSeatModal('seat_Desk_B01', 'Desk B-01')">Desk B-01<br><span style="font-weight: normal; font-size: 0.85rem;">(Available)</span></button>
+                <button class="seat-btn unavailable" id="seat_Desk_B02" disabled>Desk B-02<br><span style="font-weight: normal; font-size: 0.85rem;">(Occupied)</span></button>
+                <button class="seat-btn" id="seat_Desk_B03" onclick="openSeatModal('seat_Desk_B03', 'Desk B-03')">Desk B-03<br><span style="font-weight: normal; font-size: 0.85rem;">(Available)</span></button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Seat Booking Popup Modal[cite: 13] -->
+    <div id="seatModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('seatModal')">&times;</span>
+            <h2 id="seatModalTitle" style="color: var(--primary); margin-bottom: 1.2rem;">Reserve Desk</h2>
+            <form onsubmit="confirmSeatBooking(event)">
+                <label style="font-weight: 600; font-size: 0.9rem;">Booking Date</label>
+                <input type="date" id="bookingDate" required>
+                
+                <label style="font-weight: 600; font-size: 0.9rem;">Booking Time</label>
+                <input type="time" id="bookingTime" required>
+                
+                <label style="font-weight: 600; font-size: 0.9rem;">Duration (30 mins to 5 hours)</label>
+                <select id="bookingDuration" required>
+                    <option value="0.5">30 Minutes</option>
+                    <option value="1" selected>1 Hour</option>
+                    <option value="1.5">1.5 Hours</option>
+                    <option value="2">2 Hours</option>
+                    <option value="2.5">2.5 Hours</option>
+                    <option value="3">3 Hours</option>
+                    <option value="3.5">3.5 Hours</option>
+                    <option value="4">4 Hours</option>
+                    <option value="4.5">4.5 Hours</option>
+                    <option value="5">5 Hours</option>
+                </select>
+                
+                <button type="submit" style="width: 100%; background: var(--primary); color: white; padding: 0.8rem; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 0.5rem;">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- User Login Modal Popup Window[cite: 13] -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
+            <h2 style="color: var(--primary); margin-bottom: 1.2rem;">User Login</h2>
+            <form onsubmit="handleLogin(event)">
+                <label style="font-weight: 600; font-size: 0.9rem;">Email</label>
+                <input type="email" id="loginEmail" required placeholder="Enter email">
+                <label style="font-weight: 600; font-size: 0.9rem;">Password</label>
+                <input type="password" id="loginPassword" required placeholder="Enter password">
+                <button type="submit" style="width: 100%; background: var(--primary); color: white; padding: 0.8rem; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- User Sign Up Modal Popup Window[cite: 13] -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('signupModal')">&times;</span>
+            <h2 style="color: var(--primary); margin-bottom: 1.2rem;">Create Account</h2>
+            <form onsubmit="handleSignup(event)">
+                <label style="font-weight: 600; font-size: 0.9rem;">Full Name</label>
+                <input type="text" id="signupName" required placeholder="Full Name">
+                <label style="font-weight: 600; font-size: 0.9rem;">Email</label>
+                <input type="email" id="signupEmail" required placeholder="Email">
+                <label style="font-weight: 600; font-size: 0.9rem;">Password</label>
+                <input type="password" id="signupPassword" required placeholder="Password">
+                <button type="submit" style="width: 100%; background: var(--secondary); color: white; padding: 0.8rem; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- General Application Notification Notice Modal[cite: 13] -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content" style="text-align: center; max-width: 380px;">
+            <h3 id="messageTitle" style="color: var(--primary); margin-bottom: 0.75rem;">Notice</h3>
+            <p id="messageBody" style="color: #555; margin-bottom: 1.5rem; font-size: 1rem; line-height: 1.5;"></p>
+            <button onclick="closeModal('messageModal')" style="background: var(--primary); color: white; padding: 0.6rem 2rem; border: none; border-radius: 20px; font-weight: bold; cursor: pointer;">OK</button>
+        </div>
+    </div>
+
+    <!-- Website Footer Element[cite: 13] -->
+    <footer>
+        <p>&copy; 2026 Community Library & Knowledge Hub. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript Execution Scripts[cite: 13] -->
+    <script>
+        /* Check authentication state and retrieve logged-in user details from local storage[cite: 13] */
+        let isLoggedIn = localStorage.getItem('apexLoggedIn') === 'true';
+        let loggedInUserName = localStorage.getItem('apexUserName') || 'User';
+        let activeSeatId = null;
+        let activeSeatName = null;
+
+        /* Window load event listener to initialize UI states, wishlists, seats, and comments[cite: 13] */
+        window.onload = function() {
+            updateAuthUI();
+            loadWishlistUI();
+            checkSeatsStatus();
+            loadAllComments();
+            
+            const today = new Date().toISOString().split('T')[0];
+            const dateInput = document.getElementById('bookingDate');
+            if(dateInput) dateInput.value = today;
+        }
+
+        /* Opens a specific modal window by its ID[cite: 13] */
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        /* Closes a specific modal window by its ID[cite: 13] */
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        /* Displays an alert/notification modal with a custom title and message body[cite: 13] */
+        function showMessage(title, text) {
+            document.getElementById('messageTitle').innerText = title;
+            document.getElementById('messageBody').innerText = text;
+            openModal('messageModal');
+        }
+
+        /* Handles keyboard events on the search bar, specifically triggering search on 'Enter' key[cite: 13] */
+        function handleSearchKey(event) {
+            if (event.key === 'Enter') {
+                let input = document.getElementById('searchInput').value.toLowerCase().trim();
+                let cards = document.getElementsByClassName('book-card');
+                let foundCount = 0;
+
+                for (let i = 0; i < cards.length; i++) {
+                    let title = cards[i].getAttribute('data-title').toLowerCase();
+                    let author = cards[i].getElementsByTagName('p')[0].innerText.toLowerCase();
+                    
+                    if (title.includes(input) || author.includes(input)) {
+                        cards[i].style.display = "";
+                        foundCount++;
+                    } else {
+                        cards[i].style.display = "none";
+                    }
+                }
+
+                if (input !== "" && foundCount === 0) {
+                    showMessage("Book Not Found", `Sorry! No books found matching "${input}". Please try searching with another name.`);
+                }
+            }
+        }
+
+        /* Filters book cards dynamically in real-time as the user types in the search bar[cite: 13] */
+        function filterBooks() {
+            let input = document.getElementById('searchInput').value.toLowerCase().trim();
+            let cards = document.getElementsByClassName('book-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].getAttribute('data-title').toLowerCase();
+                let author = cards[i].getElementsByTagName('p')[0].innerText.toLowerCase();
+                
+                if (title.includes(input) || author.includes(input)) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        /* Handles user registration form submission and stores user data locally[cite: 13] */
+        function handleSignup(event) {
+            event.preventDefault();
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim().toLowerCase();
+            const password = document.getElementById('signupPassword').value;
+
+            localStorage.setItem('apexUserName', name);
+            localStorage.setItem('apexUserEmail', email);
+            localStorage.setItem('apexUserPassword', password);
+
+            closeModal('signupModal');
+            showMessage('Success', 'Account registered successfully! Please log in.');
+        }
+
+        /* Handles user login authentication against stored local credentials[cite: 13] */
+        function handleLogin(event) {
+            event.preventDefault();
+            const inputEmail = document.getElementById('loginEmail').value.trim().toLowerCase();
+            const inputPassword = document.getElementById('loginPassword').value;
+
+            const savedEmail = localStorage.getItem('apexUserEmail');
+            const savedPassword = localStorage.getItem('apexUserPassword');
+
+            if (!savedEmail || !savedPassword) {
+                showMessage('Login Failed', 'No account found! Please Sign Up first.');
+                return;
+            }
+
+            if (inputEmail === savedEmail && inputPassword === savedPassword) {
+                localStorage.setItem('apexLoggedIn', 'true');
+                isLoggedIn = true;
+                loggedInUserName = localStorage.getItem('apexUserName');
+                closeModal('loginModal');
+                updateAuthUI();
+                loadWishlistUI();
+                showMessage('Success', `Welcome back, ${loggedInUserName}!`);
+            } else {
+                showMessage('Login Failed', 'Incorrect Email or Password!');
+            }
+        }
+
+        /* Handles user logout by clearing session states and updating UI elements[cite: 13] */
+        function handleLogout() {
+            localStorage.removeItem('apexLoggedIn');
+            isLoggedIn = false;
+            updateAuthUI();
+            loadWishlistUI();
+            showMessage('Logged Out', 'You have been logged out successfully.');
+        }
+
+        /* Dynamically updates the authentication section UI based on login status[cite: 13] */
+        function updateAuthUI() {
+            const authSection = document.getElementById('authSection');
+            if (isLoggedIn) {
+                authSection.innerHTML = `
+                    <span style="color: white; font-weight: 600;">👤 Hi, ${loggedInUserName}</span>
+                    <button onclick="handleLogout()" style="background: #e63946; color: white; border: none; padding: 0.4rem 0.9rem; border-radius: 20px; cursor: pointer; font-weight: bold;">Logout</button>
+                `;
+            } else {
+                authSection.innerHTML = `
+                    <a href="#" class="btn-login" onclick="openModal('loginModal')">Login</a>
+                    <a href="#" class="btn-signup" onclick="openModal('signupModal')">Sign Up</a>
+                `;
+            }
+        }
+
+        /* Handles issuing a physical book if the user is authenticated[cite: 13] */
+        function issueBook(bookName) {
+            if (!isLoggedIn) {
+                showMessage('Access Denied', 'Please Login first to issue a physical book!');
+                openModal('loginModal');
+            } else {
+                showMessage('Book Issued', `Success! "${bookName}" has been issued to ${loggedInUserName}.`);
+            }
+        }
+
+        /* Grants access to online E-books in a new tab if logged in[cite: 13] */
+        function accessEBook(url) {
+            if (!isLoggedIn) {
+                showMessage('Login Required', 'You must log in to your member account to access online E-books!');
+                openModal('loginModal');
+            } else {
+                window.open(url, '_blank');
+            }
+        }
+
+        /* Generates a unique storage key for user wishlists based on email[cite: 13] */
+        function getWishlistKey() {
+            const email = localStorage.getItem('apexUserEmail') || 'guest';
+            return 'apexWishlist_' + email;
+        }
+
+        /* Toggles a book item in or out of the user's personal wishlist[cite: 13] */
+        function toggleWishlist(bookName) {
+            if (!isLoggedIn) {
+                showMessage('Login Required', 'Please Login first to add items to your personal wishlist!');
+                openModal('loginModal');
+                return;
+            }
+
+            let wishlist = JSON.parse(localStorage.getItem(getWishlistKey())) || [];
+            let index = wishlist.indexOf(bookName);
+            let btn = document.getElementById('wish_' + bookName);
+
+            if (index > -1) {
+                wishlist.splice(index, 1);
+                btn.classList.remove('active-fav');
+                btn.innerHTML = '🤍 Wishlist';
+                showMessage('Removed', `"${bookName}" has been removed from your wishlist.`);
+            } else {
+                wishlist.push(bookName);
+                btn.classList.add('active-fav');
+                btn.innerHTML = '❤️ Wishlist';
+                showMessage('Saved to Wishlist', `❤️ "${bookName}" marked as favorite and saved to your account!`);
+            }
+            localStorage.setItem(getWishlistKey(), JSON.stringify(wishlist));
+        }
+
+        /* Loads and updates the wishlist visual state on buttons across the page[cite: 13] */
+        function loadWishlistUI() {
+            let wishlist = [];
+            if (isLoggedIn) {
+                wishlist = JSON.parse(localStorage.getItem(getWishlistKey())) || [];
+            }
+
+            let buttons = document.querySelectorAll('.btn-wishlist');
+            buttons.forEach(btn => {
+                btn.classList.remove('active-fav');
+                btn.innerHTML = '🤍 Wishlist';
+            });
+
+            wishlist.forEach(bookName => {
+                let btn = document.getElementById('wish_' + bookName);
+                if (btn) {
+                    btn.classList.add('active-fav');
+                    btn.innerHTML = '❤️ Wishlist';
+                }
+            });
+        }
+
+        /* Opens the seat reservation modal if the user is authenticated[cite: 13] */
+        function openSeatModal(seatId, seatName) {
+            if (!isLoggedIn) {
+                showMessage('Login Required', 'Please Login first to reserve a reading room seat!');
+                openModal('loginModal');
+                return;
+            }
+            activeSeatId = seatId;
+            activeSeatName = seatName;
+            document.getElementById('seatModalTitle').innerText = 'Reserve ' + seatName;
+            openModal('seatModal');
+        }
+
+        /* Confirms and saves reading room seat bookings with expiration tracking[cite: 13] */
+        function confirmSeatBooking(event) {
+            event.preventDefault();
+            if (!activeSeatId) return;
+
+            let dateVal = document.getElementById('bookingDate').value;
+            let timeVal = document.getElementById('bookingTime').value;
+            let durationHours = parseFloat(document.getElementById('bookingDuration').value);
+
+            if (!dateVal || !timeVal) {
+                showMessage('Error', 'Please select both date and time.');
+                return;
+            }
+
+            let [hours, minutes] = timeVal.split(':').map(Number);
+            let [year, month, day] = dateVal.split('-').map(Number);
+            
+            let startDate = new Date(year, month - 1, day, hours, minutes);
+            let startTimeMs = startDate.getTime();
+            
+            let durationMs = durationHours * 60 * 60 * 1000;
+            let expiryTimeMs = startTimeMs + durationMs;
+
+            let formattedStartTime = formatAMPM(hours, minutes);
+            
+            let totalEndMinutes = (hours * 60) + minutes + Math.round(durationHours * 60);
+            let endHours = Math.floor(totalEndMinutes / 60) % 24;
+            let endMins = totalEndMinutes % 60;
+            let formattedEndTime = formatAMPM(endHours, endMins);
+
+            let formattedDateStr = `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
+
+            let bookingData = {
+                dateStr: formattedDateStr,
+                timeRange: `${formattedStartTime} - ${formattedEndTime}`,
+                expiry: expiryTimeMs,
+                userName: loggedInUserName
+            };
+
+            localStorage.setItem('seat_booking_' + activeSeatId, JSON.stringify(bookingData));
+            closeModal('seatModal');
+            checkSeatsStatus();
+
+            showMessage('Seat Reserved Successfully!', `Success! ${activeSeatName} has been reserved for you, ${loggedInUserName}, for ${durationHours >= 1 ? durationHours + ' hour(s)' : '30 minutes'}.`);
+        }
+
+        /* Formats hours and minutes into 12-hour AM/PM time strings[cite: 13] */
+        function formatAMPM(h, m) {
+            let ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12;
+            h = h ? h : 12;
+            let mStr = String(m).padStart(2, '0');
+            return `${h}:${mStr} ${ampm}`;
+        }
+
+        /* Checks and updates seat availability status based on expiration times[cite: 13] */
+        function checkSeatsStatus() {
+            let seats = ['seat_Desk_A01', 'seat_Desk_A03', 'seat_Desk_B01', 'seat_Desk_B03'];
+            let seatNames = {
+                'seat_Desk_A01': 'Desk A-01', 
+                'seat_Desk_A03': 'Desk A-03', 
+                'seat_Desk_B01': 'Desk B-01', 
+                'seat_Desk_B03': 'Desk B-03'
+            };
+            let now = new Date().getTime();
+
+            seats.forEach(seatId => {
+                let rawData = localStorage.getItem('seat_booking_' + seatId);
+                let btn = document.getElementById(seatId);
+                if (!btn) return;
+
+                if (rawData) {
+                    let booking = JSON.parse(rawData);
+                    if (now >= booking.expiry) {
+                        localStorage.removeItem('seat_booking_' + seatId);
+                        btn.innerHTML = `${seatNames[seatId]}<br><span style="font-weight: normal; font-size: 0.85rem;">(Available)</span>`;
+                        btn.classList.remove('unavailable');
+                        btn.setAttribute('onclick', `openSeatModal('${seatId}', '${seatNames[seatId]}')`);
+                    } else {
+                        btn.innerHTML = `${seatNames[seatId]}<br><span style="font-weight: normal; font-size: 0.85rem;">Occupied<br>Booked:<br>${booking.dateStr}<br>${booking.timeRange}</span>`;
+                        btn.classList.add('unavailable');
+                        btn.removeAttribute('onclick');
+                    }
+                } else {
+                    btn.innerHTML = `${seatNames[seatId]}<br><span style="font-weight: normal; font-size: 0.85rem;">(Available)</span>`;
+                    btn.classList.remove('unavailable');
+                    btn.setAttribute('onclick', `openSeatModal('${seatId}', '${seatNames[seatId]}')`);
+                }
+            });
+        }
+
+        /* Adds a new comment to a specified book if the user is logged in[cite: 13] */
+        function addComment(bookName) {
+            if (!isLoggedIn) {
+                showMessage('Login Required', 'Comments are visible to all, but you must Login first to post a comment or review!');
+                openModal('loginModal');
+                return;
+            }
+
+            let inputField = document.getElementById('input_' + bookName);
+            let commentText = inputField.value.trim();
+
+            if (!commentText) {
+                showMessage('Notice', 'Comment box cannot be empty!');
+                return;
+            }
+
+            let storageKey = 'apexComments_' + bookName;
+            let comments = JSON.parse(localStorage.getItem(storageKey)) || [];
+            
+            comments.push({ user: loggedInUserName, text: commentText });
+            localStorage.setItem(storageKey, JSON.stringify(comments));
+
+            inputField.value = '';
+            loadCommentsForBook(bookName);
+            showMessage('Success', 'Your comment has been posted successfully!');
+        }
+
+        /* Loads and renders comments for a specific book from local storage[cite: 13] */
+        function loadCommentsForBook(bookName) {
+            let storageKey = 'apexComments_' + bookName;
+            let comments = JSON.parse(localStorage.getItem(storageKey)) || [];
+            let container = document.getElementById('comments_' + bookName);
+
+            if (container) {
+                let html = '';
+                if (comments.length === 0) {
+                    html = '<div class="comment-item">No comments yet. Be the first to comment!</div>';
+                } else {
+                    comments.forEach(c => {
+                        html += `<div class="comment-item"><strong>${c.user}:</strong> ${c.text}</div>`;
+                    });
+                }
+                container.innerHTML = html;
+            }
+        }
+
+        /* Loads comments for all books in the catalog[cite: 13] */
+        function loadAllComments() {
+            let books = [
+                'The Great Gatsby', 
+                'To Kill a Mockingbird', 
+                '1984', 
+                'Clean Code', 
+                'Pride and Prejudice', 
+                'The Hobbit', 
+                'Atomic Habits', 
+                'Design Patterns'
+            ];
+            books.forEach(b => loadCommentsForBook(b));
+        }
+    </script>
+</body>
+</html>

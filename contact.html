@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<!-- Specifies the document type and HTML5 version for the webpage[cite: 13] -->
+<html lang="en">
+<head>
+    <!-- Sets character encoding to UTF-8 to support standard and international text[cite: 13] -->
+    <meta charset="UTF-8">
+    <!-- Ensures responsive scaling and proper layout sizing on mobile viewports[cite: 13] -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sets the text title that appears in the browser tab[cite: 13] -->
+    <title>Apex Library Hub - Contact Us</title>
+    <!-- Imports the Google Inter font stylesheet for clean typography[cite: 13] -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Defines custom CSS variables for consistent color themes across the page[cite: 13] */
+        :root { --primary: #1b4332; --secondary: #2d6a4f; --accent: #52b788; --light-bg: #f0f7f4; }
+        /* Resets default margins, paddings, and configures box-sizing for all elements[cite: 13] */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        /* Sets global background color, text color, and hides horizontal overflow[cite: 13] */
+        body { background-color: var(--light-bg); color: #333; overflow-x: hidden; }
+
+        /* Responsive Header Navigation styles */
+        header { 
+            background: linear-gradient(135deg, #081c15, #1b4332); 
+            padding: 1.2rem 3%; 
+            color: white; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 1rem;
+        }
+        /* Styles the website logo text with the accent color[cite: 13] */
+        .logo { font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+        
+        /* Defines layout and spacing for navigation lists[cite: 13] */
+        nav ul { display: flex; list-style: none; gap: 1rem; flex-wrap: wrap; }
+        /* Styles navigation links with padding, border-radius, and smooth transition effects[cite: 13] */
+        nav a { color: white; text-decoration: none; font-weight: 600; padding: 0.5rem 0.8rem; border-radius: 6px; transition: 0.3s; font-size: 0.95rem; }
+        /* Adds hover and active state styling for navigation links[cite: 13] */
+        nav a:hover, nav a.active { background: rgba(82, 183, 136, 0.25); color: var(--accent); }
+
+        /* Main Container Layout styles */
+        .container { max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem; }
+        /* Styles the top visual banner with gradient colors, padding, and rounded edges[cite: 13] */
+        .banner { 
+            background: linear-gradient(135deg, #2d6a4f, #52b788); 
+            color: white; padding: 2.2rem 1.5rem; border-radius: 16px; text-align: center; margin-bottom: 2.5rem; 
+            box-shadow: 0 8px 20px rgba(45, 106, 79, 0.15);
+        }
+        /* Sets responsive font sizes for banner heading and paragraph[cite: 13] */
+        .banner h1 { font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 0.5rem; }
+        .banner p { font-size: clamp(0.9rem, 2vw, 1rem); }
+
+        /* Responsive Contact Grid Container styles */
+        .contact-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 2rem; 
+        }
+        /* Styles the info panel and form box with background, padding, shadow, and word-break rules[cite: 13] */
+        .contact-info, .contact-form-box { 
+            background: white; padding: 2rem; border-radius: 16px; 
+            box-shadow: 0 6px 15px rgba(0,0,0,0.06); word-break: break-word;
+        }
+        
+        /* Defines spacing and styles for individual form groups[cite: 13] */
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--primary); }
+        .form-group input, .form-group textarea { width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; outline: none; font-size: 0.95rem; }
+        .form-group textarea { height: 120px; resize: none; }
+
+        /* Styles the form submission button with background color, padding, and hover transitions[cite: 13] */
+        .btn-submit { background: var(--primary); color: white; border: none; width: 100%; padding: 0.9rem; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-submit:hover { background: var(--secondary); }
+
+        /* Modal Notification Design styles */
+        .modal { display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(8, 28, 21, 0.65); justify-content: center; align-items: center; padding: 1rem; }
+        .modal-content { background: white; padding: 2rem 1.5rem; border-radius: 16px; width: 100%; max-width: 380px; text-align: center; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+
+        /* Styles the website footer section[cite: 13] */
+        footer { background: #081c15; color: #adb5bd; text-align: center; padding: 2rem 1.5rem; margin-top: 4rem; }
+
+        /* Extra Mobile Media Breakpoint Styling for screens under 768px wide[cite: 13] */
+        @media (max-width: 768px) {
+            header { flex-direction: column; align-items: center; text-align: center; }
+            nav ul { justify-content: center; gap: 0.8rem; }
+            .container { padding: 0 1rem; }
+            .contact-info, .contact-form-box { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header containing logo and navigation elements[cite: 13] -->
+    <header>
+        <div class="logo">Apex Library Hub</div>
+        <nav>
+            <ul>
+                <!-- Navigation menu links with active state on the contact page[cite: 13] -->
+                <li><a href="index.html">Home</a></li>
+                <li><a href="catalog.html">Catalog</a></li>
+                <li><a href="media.html">Media</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main content container wrapper[cite: 13] -->
+    <main class="container">
+        <!-- Hero banner section welcoming users and explaining inquiry options[cite: 13] -->
+        <section class="banner">
+            <h1>Get in Touch With Us</h1>
+            <p>Have any questions about library membership, book requests, or seat reservations? Send us a message!</p>
+        </section>
+
+        <!-- Grid layout container separating contact info and the contact form[cite: 13] -->
+        <div class="contact-grid">
+            
+            <!-- Contact Info Details panel[cite: 13] -->
+            <div class="contact-info">
+                <h2 style="color: var(--primary); margin-bottom: 1.2rem;">Contact Information</h2>
+                <p style="color: #666; margin-bottom: 1.5rem; line-height: 1.6;">Our support team is available during library opening hours to assist you.</p>
+                
+                <!-- Physical library location details[cite: 13] -->
+                <div style="margin-bottom: 1rem;">
+                    <strong>📍 Location:</strong>
+                    <p style="color: #555; font-size: 0.9rem;">King's Own Institute (KOI)<br>Level 1, 31 Market Street, Sydney NSW 2000, Australia</p>
+                </div>
+                <!-- Telephone contact details[cite: 13] -->
+                <div style="margin-bottom: 1rem;">
+                    <strong>📞 Phone:</strong>
+                    <p style="color: #555; font-size: 0.9rem;">+61 2 8277 8111</p>
+                </div>
+                <!-- Support email address[cite: 13] -->
+                <div style="margin-bottom: 1rem;">
+                    <strong>✉️ Email:</strong>
+                    <p style="color: #555; font-size: 0.9rem;">support@apexlibraryhub.com</p>
+                </div>
+                <!-- Library operating hours[cite: 13] -->
+                <div style="margin-bottom: 1.2rem;">
+                    <strong>⏰ Opening Hours:</strong>
+                    <p style="color: #555; font-size: 0.9rem;">Sun - Fri: 9:00 AM – 9:00 PM</p>
+                </div>
+                
+                <!-- Embedded Google Map iframe for location visualization[cite: 13] -->
+                <div>
+                    <h3 style="color: var(--primary); margin-bottom: 10px; font-size: 1.1rem;">Find Us</h3>
+                    <iframe
+                        src="https://www.google.com/maps?q=King%27s+Own+Institute,+31+Market+Street,+Sydney+NSW+2000&output=embed"
+                        width="100%"
+                        height="240"
+                        style="border:0; border-radius:12px;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- Contact Form Box container for user messages[cite: 13] -->
+            <div class="contact-form-box">
+                <h2 style="color: var(--primary); margin-bottom: 1.2rem;">Send Us a Message</h2>
+                <!-- Form element linked to submission event handling script[cite: 13] -->
+                <form onsubmit="handleContactSubmit(event)">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" id="contactName" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="contactEmail" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea id="contactMessage" required placeholder="Write your message or inquiry..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Send Message</button>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Success Modal popup dialog displayed after message transmission[cite: 13] -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <h3 style="color: var(--primary); margin-bottom: 0.75rem;">Message Sent!</h3>
+            <p id="successText" style="color: #555; margin-bottom: 1.5rem; font-size: 0.95rem;"></p>
+            <button onclick="closeSuccessModal()" style="background: var(--primary); color: white; padding: 0.6rem 2rem; border: none; border-radius: 20px; font-weight: bold; cursor: pointer;">OK</button>
+        </div>
+    </div>
+
+    <!-- Website footer section containing copyright notices[cite: 13] -->
+    <footer>
+        <p>&copy; 2026 Apex Community Library & Knowledge Hub. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript block for handling contact form actions and local storage persistence[cite: 13] -->
+    <script>
+        /* Handles form submission, saves contact messages to local storage, and triggers success dialogs[cite: 13] */
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+
+            let messages = JSON.parse(localStorage.getItem('apexContactMessages')) || [];
+            messages.push({ name, email, message, date: new Date().toLocaleString() });
+            localStorage.setItem('apexContactMessages', JSON.stringify(messages));
+
+            document.getElementById('successText').innerText = `Thank you, ${name}! Your message has been sent successfully. We will reply to ${email} soon.`;
+            document.getElementById('successModal').style.display = 'flex';
+
+            event.target.reset();
+        }
+
+        /* Closes the success modal notification window[cite: 13] */
+        function closeSuccessModal() {
+            document.getElementById('successModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

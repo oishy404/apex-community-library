@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<!-- Specifies the document type and HTML5 version for the webpage[cite: 14] -->
+<html lang="en">
+<head>
+    <!-- Sets the character encoding to UTF-8 for proper text representation[cite: 14] -->
+    <meta charset="UTF-8">
+    <!-- Ensures proper mobile viewport scaling and responsive behavior[cite: 14] -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sets the title displayed in the browser tab[cite: 14] -->
+    <title>Apex Community Library & Knowledge Hub - Home</title>
+    <!-- Imports the Google Inter font for clean typography[cite: 14] -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Defines custom CSS variables for color scheme management[cite: 14] */
+        :root {
+            --primary: #1b4332;
+            --secondary: #2d6a4f;
+            --accent: #52b788;
+            --highlight: #ffb703;
+            --light-bg: #f0f7f4;
+            --card-bg: #ffffff;
+        }
+        /* Resets default margins, paddings, and applies box-sizing globally[cite: 14] */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        /* Sets the global background and text color[cite: 14] */
+        body { background-color: var(--light-bg); color: #333; }
+
+        /* Styles the main website header with background gradient and flex alignment[cite: 14] */
+        header { 
+            background: linear-gradient(135deg, #081c15, #1b4332, #2d6a4f); 
+            padding: 1.2rem 3%; 
+            color: white; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15); 
+            position: relative;
+        }
+        /* Styles the logo with a gradient text effect[cite: 14] */
+        .logo { font-size: 1.6rem; font-weight: 700; background: linear-gradient(45deg, #52b788, #d8f3dc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* Styles navigation wrapper and link lists[cite: 14] */
+        nav { display: flex; align-items: center; gap: 1.5rem; }
+        nav ul { display: flex; list-style: none; gap: 1.5rem; align-items: center; }
+        nav a { color: white; text-decoration: none; font-weight: 600; transition: 0.3s; padding: 0.5rem 0.8rem; border-radius: 6px; }
+        nav a:hover, nav a.active { background: rgba(82, 183, 136, 0.25); color: var(--accent); }
+
+        /* Styles authentication action buttons in the header[cite: 14] */
+        .auth-buttons { display: flex; gap: 0.8rem; align-items: center; }
+        .auth-buttons a { color: white; text-decoration: none; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: bold; transition: 0.3s; }
+        .btn-login { background: transparent; border: 2px solid var(--accent); }
+        .btn-login:hover { background: var(--accent); color: #081c15; }
+        .btn-signup { background: linear-gradient(135deg, #52b788, #40916c); }
+        .btn-signup:hover { opacity: 0.9; transform: scale(1.05); }
+
+        /* Mobile Hamburger Toggle icon button style[cite: 14] */
+        .menu-toggle { display: none; cursor: pointer; font-size: 1.8rem; color: white; }
+
+        /* Styles the hero banner section with a background image overlay and typography[cite: 14] */
+        .hero {
+            background: linear-gradient(135deg, rgba(27,67,50,0.9), rgba(45,106,79,0.85)), url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+        .hero h1 { font-size: 3rem; margin-bottom: 1rem; font-weight: 700; text-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+        .hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 2rem; opacity: 0.95; }
+        .hero-btn {
+            background: var(--highlight);
+            color: #1b4332;
+            padding: 0.9rem 2.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(255, 183, 3, 0.4);
+            transition: 0.3s;
+            display: inline-block;
+        }
+        .hero-btn:hover { background: #ffa200; transform: translateY(-3px); }
+
+        /* Styles the container holding library statistics cards[cite: 14] */
+        .stats-container {
+            max-width: 1100px;
+            margin: -3rem auto 3rem auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+        /* Styles individual stat cards with shadows and hover animation[cite: 14] */
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border-bottom: 4px solid var(--accent);
+            transition: 0.3s;
+        }
+        .stat-card:hover { transform: translateY(-5px); }
+        .stat-card h3 { font-size: 2.2rem; color: var(--primary); margin-bottom: 0.3rem; }
+        .stat-card p { color: #666; font-weight: 600; }
+
+        /* Styles the layout section for welcome information and the notice board[cite: 14] */
+        .content-section {
+            max-width: 1100px;
+            margin: 0 auto 4rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        .welcome-box, .notice-box {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        .welcome-box h2, .notice-box h2 { color: var(--primary); margin-bottom: 1rem; font-size: 1.8rem; }
+        .welcome-box p { color: #555; line-height: 1.7; margin-bottom: 1.5rem; }
+        
+        /* Styles items within the notice list[cite: 14] */
+        .notice-list { list-style: none; }
+        .notice-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.95rem;
+            color: #444;
+        }
+        .notice-list li span { color: var(--secondary); font-weight: bold; display: block; font-size: 0.8rem; }
+
+        /* Styles popup modal overlay containers[cite: 14] */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 3000;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(8, 28, 21, 0.65);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+        /* Styles modal popup content boxes[cite: 14] */
+        .modal-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #888; }
+        .modal input { width: 100%; padding: 0.8rem 1rem; margin: 0.4rem 0 1.2rem; border: 1px solid #ddd; border-radius: 8px; outline: none; }
+
+        /* Styles the website footer section[cite: 14] */
+        footer { background: #081c15; color: #adb5bd; text-align: center; padding: 2rem; border-top: 4px solid var(--accent); }
+
+        /* Responsive Media Queries for Tablets & Phones[cite: 14] */
+        @media(max-width: 900px) {
+            .content-section { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.2rem; }
+        }
+        @media(max-width: 768px) {
+            .menu-toggle { display: block; }
+            nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%; left: 0; width: 100%;
+                background: #081c15;
+                padding: 1.5rem;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+                align-items: flex-start;
+            }
+            nav.active { display: flex; }
+            nav ul { flex-direction: column; width: 100%; gap: 1rem; }
+            nav ul li { width: 100%; }
+            nav a { display: block; width: 100%; }
+            .auth-buttons { width: 100%; justify-content: space-between; margin-top: 1rem; }
+            .hero { padding: 4rem 1rem; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header section with logo, mobile menu toggle, and navigation links[cite: 14] -->
+    <header>
+        <div class="logo">Apex Library Hub</div>
+        <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+        <nav id="navMenu">
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="catalog.html">Catalog</a></li>
+                <li><a href="media.html">Media</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="auth-buttons" id="authSection">
+                <a href="#" class="btn-login" onclick="openModal('loginModal')">Login</a>
+                <a href="#" class="btn-signup" onclick="openModal('signupModal')">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero banner introducing the library community[cite: 14] -->
+    <section class="hero">
+        <h1>Welcome to Apex Community Library</h1>
+        <p>Your ultimate destination for books, knowledge, research papers, and modern learning spaces. Join our community today!</p>
+        <a href="catalog.html" class="hero-btn">Browse Book Catalog</a>
+    </section>
+
+    <!-- Statistics overview cards displaying key library metrics[cite: 14] -->
+    <div class="stats-container">
+        <div class="stat-card"><h3>5,000+</h3><p>Books & Journals</p></div>
+        <div class="stat-card"><h3>1,200+</h3><p>Active Members</p></div>
+        <div class="stat-card"><h3>24/7</h3><p>Reading Hub Access</p></div>
+    </div>
+
+    <!-- Main content area featuring community information and the notice board[cite: 14] -->
+    <div class="content-section">
+        <div class="welcome-box">
+            <h2>Empowering Minds, Connecting Communities</h2>
+            <p>Apex Community Library & Knowledge Hub is dedicated to fostering a culture of reading and lifelong learning. Whether you are looking for classic literature, programming guides, academic journals, or quiet space to study, we provide everything under one roof.</p>
+            <a href="catalog.html" style="background: var(--secondary); color: white; padding: 0.7rem 1.5rem; border-radius: 20px; text-decoration: none; font-weight: bold; display: inline-block;">Explore Catalog &rarr;</a>
+        </div>
+        <div class="notice-box">
+            <h2>📢 Notice Board</h2>
+            <ul class="notice-list">
+                <li><span>June 12, 2026</span>New programming and tech books added!</li>
+                <li><span>June 05, 2026</span>Library hours extended during exams (Open till 10 PM).</li>
+                <li><span>May 28, 2026</span>Annual community book reading club meetup this Friday.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- User Login Modal Window[cite: 14] -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
+            <h2 style="color: var(--primary); margin-bottom: 1.2rem;">User Login</h2>
+            <form onsubmit="handleLogin(event)">
+                <label style="font-size: 0.9rem; font-weight: 600;">Email Address</label>
+                <input type="email" id="loginEmail" required placeholder="Enter your email">
+                <label style="font-size: 0.9rem; font-weight: 600;">Password</label>
+                <input type="password" id="loginPassword" required placeholder="Enter your password">
+                <button type="submit" style="width: 100%; background: var(--primary); color: white; padding: 0.8rem; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- User Sign Up Modal Window[cite: 14] -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('signupModal')">&times;</span>
+            <h2 style="color: var(--primary); margin-bottom: 1.2rem;">Create Account</h2>
+            <form onsubmit="handleSignup(event)">
+                <label style="font-size: 0.9rem; font-weight: 600;">Full Name</label>
+                <input type="text" id="signupName" required placeholder="Enter your name">
+                <label style="font-size: 0.9rem; font-weight: 600;">Email Address</label>
+                <input type="email" id="signupEmail" required placeholder="Enter your email">
+                <label style="font-size: 0.9rem; font-weight: 600;">Password</label>
+                <input type="password" id="signupPassword" required placeholder="Create a password">
+                <button type="submit" style="width: 100%; background: var(--secondary); color: white; padding: 0.8rem; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- General Application Notification Modal Window[cite: 14] -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content" style="text-align: center;">
+            <h3 id="messageTitle" style="color: var(--primary); margin-bottom: 0.75rem;">Notice</h3>
+            <p id="messageBody" style="color: #555; margin-bottom: 1.5rem; font-size: 1rem; line-height: 1.5;"></p>
+            <button onclick="closeModal('messageModal')" style="background: var(--primary); color: white; padding: 0.6rem 2rem; border: none; border-radius: 20px; font-weight: bold; cursor: pointer;">OK</button>
+        </div>
+    </div>
+
+    <!-- Website footer section[cite: 14] -->
+    <footer>
+        <p>&copy; 2026 Apex Community Library & Knowledge Hub. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript code blocks for authentication, menu toggles, and modal controls[cite: 14] -->
+    <script>
+        /* Initializes user login state and name from local storage[cite: 14] */
+        let isLoggedIn = localStorage.getItem('apexLoggedIn') === 'true';
+        let loggedInUserName = localStorage.getItem('apexUserName') || 'User';
+
+        /* Updates UI elements when the window finishes loading[cite: 14] */
+        window.onload = function() { updateAuthUI(); }
+        /* Toggles the mobile navigation menu display[cite: 14] */
+        function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
+        /* Opens a specific modal window by its ID[cite: 14] */
+        function openModal(modalId) { document.getElementById(modalId).style.display = 'flex'; }
+        /* Closes a specific modal window by its ID[cite: 14] */
+        function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
+        /* Displays custom alert messages inside the notification modal[cite: 14] */
+        function showMessage(title, text) {
+            document.getElementById('messageTitle').innerText = title;
+            document.getElementById('messageBody').innerText = text;
+            openModal('messageModal');
+        }
+        /* Handles user sign up process and saves user data locally[cite: 14] */
+        function handleSignup(event) {
+            event.preventDefault();
+            localStorage.setItem('apexUserName', document.getElementById('signupName').value.trim());
+            localStorage.setItem('apexUserEmail', document.getElementById('signupEmail').value.trim().toLowerCase());
+            localStorage.setItem('apexUserPassword', document.getElementById('signupPassword').value);
+            closeModal('signupModal');
+            showMessage('Success', 'Account registered successfully! Please log in.');
+        }
+        /* Validates login credentials against local storage[cite: 14] */
+        function handleLogin(event) {
+            event.preventDefault();
+            if (document.getElementById('loginEmail').value.trim().toLowerCase() === localStorage.getItem('apexUserEmail') && 
+                document.getElementById('loginPassword').value === localStorage.getItem('apexUserPassword')) {
+                localStorage.setItem('apexLoggedIn', 'true');
+                isLoggedIn = true;
+                loggedInUserName = localStorage.getItem('apexUserName');
+                closeModal('loginModal');
+                updateAuthUI();
+                showMessage('Success', `Welcome back, ${loggedInUserName}!`);
+            } else {
+                showMessage('Login Failed', 'Incorrect Email or Password!');
+            }
+        }
+        /* Clears login session details and updates authentication UI[cite: 14] */
+        function handleLogout() {
+            localStorage.removeItem('apexLoggedIn');
+            isLoggedIn = false;
+            updateAuthUI();
+            showMessage('Logged Out', 'You have been logged out successfully.');
+        }
+        /* Dynamically updates the header auth section based on login status[cite: 14] */
+        function updateAuthUI() {
+            const authSection = document.getElementById('authSection');
+            if (isLoggedIn) {
+                authSection.innerHTML = `<span style="color: white; font-weight: 600;">👤 Hi, ${loggedInUserName}</span> <button onclick="handleLogout()" style="background: #e63946; color: white; border: none; padding: 0.4rem 0.9rem; border-radius: 20px; cursor: pointer; font-weight: bold;">Logout</button>`;
+            } else {
+                authSection.innerHTML = `<a href="#" class="btn-login" onclick="openModal('loginModal')">Login</a> <a href="#" class="btn-signup" onclick="openModal('signupModal')">Sign Up</a>`;
+            }
+        }
+    </script>
+</body>
+</html>

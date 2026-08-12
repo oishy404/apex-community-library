@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Sets character encoding and ensures proper mobile viewport scaling -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Library Hub - About Us</title>
+    <!-- Google Fonts import for Inter typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global color variables and reset rules */
+        :root { --primary: #1b4332; --secondary: #2d6a4f; --accent: #52b788; --light-bg: #f0f7f4; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--light-bg); color: #333; overflow-x: hidden; }
+
+        /* Responsive Header Navigation styles */
+        header { 
+            background: linear-gradient(135deg, #081c15, #1b4332); 
+            padding: 1.2rem 3%; 
+            color: white; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 1rem;
+        }
+        .logo { font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+        
+        nav ul { display: flex; list-style: none; gap: 1rem; flex-wrap: wrap; }
+        nav a { color: white; text-decoration: none; font-weight: 600; padding: 0.5rem 0.8rem; border-radius: 6px; transition: 0.3s; font-size: 0.95rem; }
+        nav a:hover, nav a.active { background: rgba(82, 183, 136, 0.25); color: var(--accent); }
+
+        /* Main Container & Banner styling */
+        .container { max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem; }
+        .banner { 
+            background: linear-gradient(135deg, #2d6a4f, #52b788); 
+            color: white; padding: 2.2rem 1.5rem; border-radius: 16px; text-align: center; margin-bottom: 2.5rem; 
+            box-shadow: 0 8px 20px rgba(45, 106, 79, 0.15);
+        }
+        .banner h1 { font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 0.5rem; }
+        .banner p { font-size: clamp(0.9rem, 2vw, 1rem); }
+
+        /* Responsive About Grid card layout */
+        .about-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 2rem; 
+            align-items: stretch; 
+            margin-bottom: 3rem; 
+        }
+        .about-card { 
+            background: white; padding: 2rem; border-radius: 14px; 
+            box-shadow: 0 6px 15px rgba(0,0,0,0.06); word-break: break-word;
+        }
+
+        /* Management Team Section layout */
+        .team-section { margin-top: 3rem; text-align: center; }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+        .team-member { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); word-break: break-word; }
+
+        /* Interactive FAQ Accordion styling */
+        .faq-section { margin-top: 3rem; background: white; padding: 2.2rem 1.5rem; border-radius: 16px; box-shadow: 0 6px 15px rgba(0,0,0,0.06); }
+        .faq-item { border-bottom: 1px solid #ddd; margin-bottom: 1rem; padding-bottom: 1rem; }
+        .faq-question { font-weight: bold; font-size: 1.05rem; color: var(--primary); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+        .faq-answer { display: none; margin-top: 0.5rem; color: #555; font-size: 0.95rem; line-height: 1.5; }
+        .faq-item.active .faq-answer { display: block; }
+
+        /* Footer styling */
+        footer { background: #081c15; color: #adb5bd; text-align: center; padding: 2rem 1.5rem; margin-top: 4rem; }
+
+        /* Mobile Media Query Breakpoints for smaller screens */
+        @media (max-width: 768px) {
+            header { flex-direction: column; align-items: center; text-align: center; }
+            nav ul { justify-content: center; gap: 0.8rem; }
+            .container { padding: 0 1rem; }
+            .about-card, .faq-section { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header containing logo and navigation menu -->
+    <header>
+        <div class="logo">Apex Library Hub</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="catalog.html">Catalog</a></li>
+                <li><a href="media.html">Media</a></li>
+                <li><a href="about.html" class="active">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main content wrapper -->
+    <main class="container">
+        <!-- Banner introduction section -->
+        <section class="banner">
+            <h1>About Apex Community Library</h1>
+            <p>Empowering minds, fostering knowledge sharing, and building an inclusive reading culture since 2018.</p>
+        </section>
+
+        <!-- Grid layout for Mission & Vision and Why Choose Us cards -->
+        <div class="about-grid">
+            <div class="about-card">
+                <h2 style="color: var(--primary); margin-bottom: 0.8rem;">Our Mission & Vision</h2>
+                <p style="color: #555; line-height: 1.6;">Our mission is to provide equal access to thousands of books, digital e-books, research papers, and quiet individual reading terminals for students, researchers, and book lovers.</p>
+            </div>
+            <div class="about-card">
+                <h2 style="color: var(--primary); margin-bottom: 0.8rem;">Why Choose Apex?</h2>
+                <p style="color: #555; line-height: 1.6;">With modern digital catalog systems, online seat reservation, 24/7 E-book access, and interactive community reviews, we bridge the gap between traditional reading and modern technology.</p>
+            </div>
+        </div>
+
+        <!-- Leadership Team section -->
+        <div class="team-section">
+            <h2 style="color: var(--primary);">Meet Our Management Team</h2>
+            <div class="team-grid">
+                <!-- Team Member 1 -->
+                <div class="team-member">
+                    <h3 style="color: var(--primary);">Anika Hossain</h3>
+                    <p style="font-size: 0.85rem; color: var(--secondary); font-weight: bold; margin: 0.2rem 0;">Chief Librarian</p>
+                    <p style="font-size: 0.8rem; color: #666;">Over 15 years of experience in library science and knowledge management.</p>
+                </div>
+                <!-- Team Member 2 -->
+                <div class="team-member">
+                    <h3 style="color: var(--primary);">Alex Jonathan</h3>
+                    <p style="font-size: 0.85rem; color: var(--secondary); font-weight: bold; margin: 0.2rem 0;">Digital System Lead</p>
+                    <p style="font-size: 0.8rem; color: #666;">Manages online databases, user security, and digital portals.</p>
+                </div>
+                <!-- Team Member 3 -->
+                <div class="team-member">
+                    <h3 style="color: var(--primary);">Steafen Morgan</h3>
+                    <p style="font-size: 0.85rem; color: var(--secondary); font-weight: bold; margin: 0.2rem 0;">Community Coordinator</p>
+                    <p style="font-size: 0.8rem; color: #666;">Organizes book reading clubs, weekly podcasts, and member events.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive FAQ Accordion section -->
+        <section class="faq-section">
+            <h2 style="color: var(--primary); margin-bottom: 1.5rem; text-align: center;">Frequently Asked Questions</h2>
+            
+            <!-- FAQ Item 1 -->
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">How do I become a registered member? <span>+</span></div>
+                <div class="faq-answer">You can easily sign up by clicking the 'Sign Up' button on the header of any page using your name, email, and password.</div>
+            </div>
+
+            <!-- FAQ Item 2 -->
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">Can I reserve a reading room seat online? <span>+</span></div>
+                <div class="faq-answer">Yes! Log into your member account, navigate to the Catalog page, and click on any available desk to reserve it for up to 2 days.</div>
+            </div>
+
+            <!-- FAQ Item 3 -->
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">Are physical book issues free of charge? <span>+</span></div>
+                <div class="faq-answer">Yes, borrowing physical books from our community library is completely free for all active registered members.</div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Page footer -->
+    <footer>
+        <p>&copy; 2026 Community Library & Knowledge Hub. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript code for accordion toggle functionality -->
+    <script>
+        function toggleFaq(element) {
+            // Toggles active state class on the clicked FAQ item
+            element.classList.toggle('active');
+            let span = element.querySelector('.faq-question span');
+            // Changes indicator icon between minus and plus signs based on state
+            span.innerText = element.classList.contains('active') ? '-' : '+';
+        }
+    </script>
+</body>
+</html>

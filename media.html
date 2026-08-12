@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!-- Specifies the document type and HTML5 version for the webpage[cite: 15] -->
+<html lang="en">
+<head>
+    <!-- Sets character encoding to UTF-8 for standard text rendering[cite: 15] -->
+    <meta charset="UTF-8">
+    <!-- Ensures proper mobile device scaling and responsive design layout[cite: 15] -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sets the page title displayed in the browser tab[cite: 15] -->
+    <title>Apex Library Hub - Media & Gallery</title>
+    <!-- Imports the Google Inter font stylesheet[cite: 15] -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Defines core theme color variables for consistent branding[cite: 15] */
+        :root { --primary: #1b4332; --secondary: #2d6a4f; --accent: #52b788; --light-bg: #f0f7f4; }
+        /* Resets default margins, paddings, and sets border-box model globally[cite: 15] */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        /* Sets the default background color, text color, and hides horizontal overflow[cite: 15] */
+        body { background-color: var(--light-bg); color: #333; overflow-x: hidden; }
+
+        /* Responsive Header Navigation styles[cite: 15] */
+        header { 
+            background: linear-gradient(135deg, #081c15, #1b4332); 
+            padding: 1.2rem 3%; 
+            color: white; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 1rem; 
+        }
+        /* Styles the website logo with font size and accent color[cite: 15] */
+        .logo { font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+        
+        /* Defines layout and spacing for navigation links[cite: 15] */
+        nav ul { display: flex; list-style: none; gap: 1rem; flex-wrap: wrap; }
+        nav a { color: white; text-decoration: none; font-weight: 600; padding: 0.5rem 0.8rem; border-radius: 6px; transition: 0.3s; font-size: 0.95rem; }
+        nav a:hover, nav a.active { background: rgba(82, 183, 136, 0.25); color: var(--accent); }
+
+        /* Main Container & Banner styles[cite: 15] */
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 1.5rem; }
+        .banner { 
+            background: linear-gradient(135deg, #2d6a4f, #52b788); 
+            color: white; padding: 2.2rem 1.5rem; border-radius: 16px; text-align: center; margin-bottom: 2rem; 
+            box-shadow: 0 8px 20px rgba(45, 106, 79, 0.15);
+        }
+        .banner h1 { font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 0.5rem; }
+        .banner p { font-size: clamp(0.9rem, 2vw, 1rem); }
+
+        /* Filter Tabs styles for switching media views[cite: 15] */
+        .filter-tabs { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .tab-btn { background: white; border: 2px solid var(--accent); padding: 0.6rem 1.5rem; border-radius: 25px; cursor: pointer; font-weight: bold; color: var(--primary); transition: 0.3s; }
+        .tab-btn.active, .tab-btn:hover { background: var(--secondary); color: white; border-color: var(--secondary); }
+
+        /* Media Grid styles for responsive card layouts[cite: 15] */
+        .media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .media-card { background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 6px 15px rgba(0,0,0,0.06); transition: 0.3s; word-break: break-word; }
+        .media-card:hover { transform: translateY(-5px); }
+        .media-content { padding: 1.5rem; }
+        .media-img { width: 100%; height: 200px; object-fit: cover; cursor: pointer; }
+
+        /* Video Thumbnail Link container styles[cite: 15] */
+        .video-thumb-wrap { position: relative; width: 100%; height: 200px; display: block; overflow: hidden; background: #000; }
+        .video-thumb-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
+        .video-thumb-wrap:hover img { transform: scale(1.05); opacity: 0.85; }
+        .play-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 64px; height: 46px; background: rgba(0,0,0,0.75); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+        .play-overlay::after { content: ""; border-style: solid; border-width: 11px 0 11px 18px; border-color: transparent transparent transparent #fff; margin-left: 4px; }
+        .video-thumb-wrap:hover .play-overlay { background: rgba(255,0,0,0.85); }
+
+        /* Image Viewer Modal styles[cite: 15] */
+        .modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; padding: 1rem; }
+        .modal img { max-width: 90%; max-height: 85vh; border-radius: 10px; object-fit: contain; }
+        .close-modal { position: absolute; top: 20px; right: 30px; color: white; font-size: 2.5rem; cursor: pointer; z-index: 2010; }
+
+        /* Footer layout styles[cite: 15] */
+        footer { background: #081c15; color: #adb5bd; text-align: center; padding: 2rem 1.5rem; margin-top: 4rem; }
+
+        /* Mobile Breakpoints for responsive adjustments[cite: 15] */
+        @media (max-width: 768px) {
+            header { flex-direction: column; align-items: center; text-align: center; }
+            nav ul { justify-content: center; gap: 0.8rem; }
+            .container { padding: 0 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header section with site logo and main navigation links[cite: 15] -->
+    <header>
+        <div class="logo">Apex Library Hub</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="catalog.html">Catalog</a></li>
+                <li><a href="media.html" class="active">Media</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main content area containing banner and media items[cite: 15] -->
+    <main class="container">
+        <!-- Hero banner section for the media page[cite: 15] -->
+        <section class="banner">
+            <h1>Media, Podcasts & Library Gallery</h1>
+            <p>Explore our latest events, book launch videos, audio podcasts, and photo memories.</p>
+        </section>
+
+        <!-- Filter Buttons to sort media categories[cite: 15] -->
+        <div class="filter-tabs">
+            <button class="tab-btn active" onclick="filterMedia('all')">All Media</button>
+            <button class="tab-btn" onclick="filterMedia('gallery')">Photo Gallery</button>
+            <button class="tab-btn" onclick="filterMedia('video')">Event Videos</button>
+        </div>
+
+        <!-- Media Grid List wrapping individual content cards[cite: 15] -->
+        <div class="media-grid">
+            
+            <!-- Gallery Item Card[cite: 15] -->
+            <div class="media-card" data-category="gallery">
+                <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=600&q=80" class="media-img" onclick="openImageViewer(this.src)" alt="Annual Book Reading Fest 2026">
+                <div class="media-content">
+                    <span style="color: var(--secondary); font-size: 0.8rem; font-weight: bold;">GALLERY</span>
+                    <h3 style="margin: 0.3rem 0;">Annual Book Reading Fest 2026</h3>
+                    <p style="font-size: 0.85rem; color: #666;">Members gathered in our central reading hall for annual book discussion.</p>
+                </div>
+            </div>
+
+            <!-- Video Item Card with external link[cite: 15] -->
+            <div class="media-card" data-category="video">
+                <a href="https://www.youtube.com/watch?v=ZNSA0NrDeb4" target="_blank" rel="noopener" class="video-thumb-wrap">
+                    <img src="https://img.youtube.com/vi/ZNSA0NrDeb4/hqdefault.jpg" alt="Virtual Library Tour 2026">
+                    <span class="play-overlay"></span>
+                </a>
+                <div class="media-content">
+                    <span style="color: var(--secondary); font-size: 0.8rem; font-weight: bold;">VIDEO</span>
+                    <h3 style="margin: 0.3rem 0;">Virtual Library Tour 2026</h3>
+                    <p style="font-size: 0.85rem; color: #666;">Take a complete walkthrough of our digital terminals and quiet zones. Watch on YouTube.</p>
+                </div>
+            </div>
+
+            <!-- Additional Gallery Item Card[cite: 15] -->
+            <div class="media-card" data-category="gallery">
+                <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=600&q=80" class="media-img" onclick="openImageViewer(this.src)" alt="Quiet Study Lounge">
+                <div class="media-content">
+                    <span style="color: var(--secondary); font-size: 0.8rem; font-weight: bold;">GALLERY</span>
+                    <h3 style="margin: 0.3rem 0;">Quiet Study Lounge</h3>
+                    <p style="font-size: 0.85rem; color: #666;">Dedicated personal desks equipped with high-speed reading lamps.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Image Viewer Modal overlay container[cite: 15] -->
+    <div id="imageModal" class="modal" onclick="closeImageViewer()">
+        <span class="close-modal">&times;</span>
+        <img id="modalImage" alt="Enlarged gallery view">
+    </div>
+
+    <!-- Footer section with copyright text[cite: 15] -->
+    <footer>
+        <p>&copy; 2026 Apex Community Library & Knowledge Hub. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript code for filtering media items and controlling the image viewer modal[cite: 15] -->
+    <script>
+        /* Filters media cards based on the selected category tab[cite: 15] */
+        function filterMedia(category) {
+            let cards = document.querySelectorAll('.media-card');
+            let buttons = document.querySelectorAll('.tab-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        /* Opens the image modal and sets the source to the clicked image[cite: 15] */
+        function openImageViewer(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').style.display = 'flex';
+        }
+
+        /* Closes the image modal viewer[cite: 15] */
+        function closeImageViewer() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
